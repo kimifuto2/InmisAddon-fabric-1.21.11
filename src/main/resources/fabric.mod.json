@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "inmisaddon",
+  "version": "${version}",
+  "name": "InmisAddon",
+  "description": "This is an addon for the mod inmis which enhances the backpack visuals",
+  "authors": [
+    "Globox_Z",
+    "Pois1x"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/inmisaddon",
+    "sources": "https://github.com/Globox1997/InmisAddon",
+    "issues": "https://github.com/Globox1997/InmisAddon/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/inmisaddon/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.inmisaddon.InmisAddonClient"
+    ]
+  },
+  "mixins": [
+    "inmisaddon.mixins.json"
+  ],
+  "depends": {
+    "java": ">=21",
+    "minecraft": ">=${minecraft_version}",
+    "fabric-api": ">=${fabric_version}",
+    "fabricloader": ">=${loader_version}",
+    "inmis": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "custom": {
+    "mc-publish": {
+      "modrinth": "c4aa1Mqq",
+      "curseforge": 666672
+    }
+  }
+}
