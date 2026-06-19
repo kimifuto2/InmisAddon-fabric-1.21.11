@@ -15,10 +15,12 @@ import net.inmisaddon.model.BabyBackpackModel;
 import net.inmisaddon.model.BackpackModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
 
 @Environment(EnvType.CLIENT)
 public class BackpackUtil {
@@ -44,7 +47,13 @@ public class BackpackUtil {
                 return true;
             }
             matrices.push();
-            playerEntityModel.body.applyTransform(matrices);
+
+            ModelPart root = playerEntityModel.getRootPart();
+            root.applyTransform(matrices);
+
+            if (playerEntityModel instanceof BipedEntityModel<?> biped) {
+                biped.body.applyTransform(matrices);
+            }
 
             matrices.translate(0D, -0.9D, 0.2D);
 

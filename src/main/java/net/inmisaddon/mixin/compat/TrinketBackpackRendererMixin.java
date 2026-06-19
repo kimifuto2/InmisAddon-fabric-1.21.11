@@ -1,7 +1,5 @@
 package net.inmisaddon.mixin.compat;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.registry.tag.ItemTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,10 +11,9 @@ import draylar.inmis.client.TrinketBackpackRenderer;
 import draylar.inmis.item.TrinketBackpackItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.inmisaddon.model.BabyBackpackModel;
-import net.inmisaddon.model.BackpackModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.RenderLayer;
@@ -29,6 +26,11 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
+import net.inmisaddon.model.BabyBackpackModel;
+import net.inmisaddon.model.BackpackModel;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.registry.tag.ItemTags;
 
 @SuppressWarnings("rawtypes")
 @Environment(EnvType.CLIENT)
@@ -59,14 +61,19 @@ public abstract class TrinketBackpackRendererMixin {
         }
 
         matrices.push();
-        if (contextModel instanceof BipedEntityModel) {
-            ((BipedEntityModel) contextModel).body.applyTransform(matrices);
+
+        ModelPart root = contextModel.getRootPart();
+        root.applyTransform(matrices);
+
+        if (contextModel instanceof BipedEntityModel<?> biped) {
+            biped.body.applyTransform(matrices);
         }
+
         matrices.translate(0D, -0.9D, 0.2D);
 
         int color = -1;
         if (stack.isIn(ItemTags.DYEABLE) && stack.get(DataComponentTypes.DYED_COLOR) != null) {
-            color = stack.get(DataComponentTypes.DYED_COLOR).rgb();
+            color = 0xFF000000 | stack.get(DataComponentTypes.DYED_COLOR).rgb();
         }
 
         Model model = stack.isOf(Inmis.BACKPACKS.get(0)) ? babyBackpackModel : backpackModel;
