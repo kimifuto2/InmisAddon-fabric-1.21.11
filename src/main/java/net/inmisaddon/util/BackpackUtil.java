@@ -58,8 +58,16 @@ public class BackpackUtil {
             matrices.translate(0D, -0.9D, 0.2D);
 
             int color = -1;
-            if (itemStack.isIn(ItemTags.DYEABLE) && itemStack.get(DataComponentTypes.DYED_COLOR) != null) {
-                color = 0xFF000000 | itemStack.get(DataComponentTypes.DYED_COLOR).rgb();
+            if (itemStack.isIn(ItemTags.DYEABLE)) {
+                Integer dyedColor = itemStack.get(DataComponentTypes.DYED_COLOR) != null
+                        ? itemStack.get(DataComponentTypes.DYED_COLOR).rgb()
+                        : null;
+                if (dyedColor != null) {
+                    color = 0xFF000000 | dyedColor;
+                } else {
+                    // Undyed leather backpack: match the base Inmis leather tint default.
+                    color = -6265536;
+                }
             }
 
             Model model = itemStack.isOf(Inmis.BACKPACKS.get(0)) ? babyBackpackModel : backpackModel;
