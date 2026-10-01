@@ -29,10 +29,7 @@ public class BabyBackpackModel extends Model {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData base = modelPartData.addChild("base", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
-        base.addChild("cube_r1", ModelPartBuilder.create().uv(50, 0).mirrored().cuboid(-5.0F, -5.0F, -4.0F, 5.0F, 10.0F, 2.0F, new Dilation(0.0F)).mirrored(false),
-                ModelTransform.of(-1.0F, -5.0F, -1.0F, -3.1416F, -1.3963F, 3.1416F));
-        base.addChild("cube_r2", ModelPartBuilder.create().uv(50, 0).mirrored().cuboid(-7.0F, -5.0F, 0.0F, 5.0F, 10.0F, 2.0F, new Dilation(0.0F)).mirrored(false),
-                ModelTransform.of(-1.0F, -5.0F, 1.0F, 0.0F, -1.3963F, 0.0F));
+        // Shoulder straps (cube_r1 / cube_r2, each 5x10x2 at uv(50,0)) removed on purpose.
         base.addChild("cube_r3",
                 ModelPartBuilder.create().uv(0, 0).cuboid(-1.0F, -4.0F, -4.0F, 3.0F, 4.0F, 1.0F, new Dilation(0.0F)).uv(0, 0).mirrored()
                         .cuboid(-1.0F, -4.0F, 3.0F, 3.0F, 4.0F, 1.0F, new Dilation(0.0F)).mirrored(false).uv(54, 12).cuboid(2.0F, -9.0F, -2.0F, 1.0F, 3.0F, 4.0F, new Dilation(0.0F)).uv(0, 14)
